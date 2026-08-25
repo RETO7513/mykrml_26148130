@@ -1,23 +1,33 @@
-[tool.poetry]
+[project]
 name = "mykrml_26148130"
-version = "0.1.0"
-description = "Inital package"
-authors = ["Rohan Yadav"]
-license = "None"
+version = "0.0.1"
+description = "Initial package"
+authors = [
+    { name = "Rohan Yadav" }
+]
+license = { text = "MIT" }
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.12"
-
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas==2.2.2",
+    "scikit-learn==1.5.1",
+]
 
 [dependency-groups]
 dev = [
     "jupyterlab==4.2.3",
-    "pandas==2.2.2",
     "pytest==8.2.2",
-    "scikit-learn==1.5.1",
 ]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mykrml_26148130"]
+
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
