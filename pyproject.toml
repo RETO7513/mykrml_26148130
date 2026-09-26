@@ -1,6 +1,6 @@
 [project]
 name = "mykrml_26148130"
-version = "0.1.0"
+version = "0.1.1"
 description = "ML Utilities Package for 36120"
 authors = [
     { name = "Rohan Yadav" }

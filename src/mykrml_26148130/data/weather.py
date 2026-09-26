@@ -91,9 +91,26 @@ def split_by_date(df, cutoff="2026-01-01"):
     return train, production
 
 
-def time_split(X, y, train_end, val_end):
-    """Chronological train/val/test split (never random for time series)."""
+def time_split(X, y, train_end, val_end, embargo=0):
+    """Chronological train/val/test split with an optional embargo gap.
+
+    Weather is a continuous physical process: consecutive days are strongly
+    autocorrelated, and features here draw on multi-day rolling windows while
+    the target is shifted forward by the forecast horizon. A day just after a
+    split boundary would therefore build its features from observations that
+    fall in the previous block, letting information bleed across the cut. The
+    ``embargo`` removes a buffer of that many days immediately after each
+    boundary so no evaluation row is constructed from data belonging to an
+    earlier split. Set it to at least (longest feature window + forecast
+    horizon); with 14-day windows and a 7-day horizon, 21 days is sufficient.
+    """
+    import pandas as pd
+
+    train_end = pd.Timestamp(train_end)
+    val_end = pd.Timestamp(val_end)
+    gap = pd.Timedelta(days=embargo)
+
     tr = X.index <= train_end
-    va = (X.index > train_end) & (X.index <= val_end)
-    te = X.index > val_end
+    va = (X.index > train_end + gap) & (X.index <= val_end)
+    te = X.index > val_end + gap
     return (X[tr], y[tr]), (X[va], y[va]), (X[te], y[te])
