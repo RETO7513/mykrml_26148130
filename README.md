@@ -1,7 +1,7 @@
 # mykrml_26148130
 
 Reusable ML utilities for UTS 36120 (Advanced Machine Learning Application).
-**Author:** Rohan Yadav (Roh) — **Student ID:** 26148130
+**Author:** Rohan Yadav — **Student ID:** 26148130
 
 Originally built for AT1 (NBA career-longevity classification), extended for
 AT2 (weather intelligence: Climate Comfort Index regression + Weather Hazard
